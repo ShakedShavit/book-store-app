@@ -15,7 +15,7 @@ const Header = () => {
         history.push('/home');
     }
 
-    console.log(userDataState.user, process.env.REACT_APP_ADMIN_EMAIL)
+    console.log(userDataState.user?.email, process.env.REACT_APP_ADMIN_EMAIL)
 
     return (
         <div className="header">
@@ -27,10 +27,14 @@ const Header = () => {
                         <span>Hello {userDataState.user.username}</span>
                         <span onClick={onClickLogOut}>Logout</span>
                         
-                        <NavLink to="/cart">Shopping Cart</NavLink>
+                        {
+                            userDataState.user.email !== process.env.REACT_APP_ADMIN_EMAIL &&
+                            <NavLink to="/cart">Shopping Cart</NavLink>
+                        }
                     </div>
                     {
-                        // userDataState.user.email === 
+                        // userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL &&
+                        // <NavLink to="/admin/edit/books">Edit Books</NavLink>
                     }
                 </div> :
                 <div>

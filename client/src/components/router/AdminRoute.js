@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { LoginContext } from '../../context/loginContext';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({ component: Component, ...rest }) => {
     const { userDataState } = useContext(LoginContext);
 
     return (
@@ -12,15 +12,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                 !!userDataState.user ?
                 <div>
                 {
-                    userDataState.user.email !== process.env.REACT_APP_ADMIN_EMAIL ?
+                    userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL ?
                     <Component { ...props } /> :
-                    <Redirect to="/home" />
+                    <Redirect to='/home' />
                 }
                 </div> :
-                <Redirect to="/login" />
+                <Redirect to='/home' />
             )}
         />
     );
-};
+}
 
-export default PrivateRoute;
+export default AdminRoute;
