@@ -1,0 +1,98 @@
+.book-wrapper {
+    width: 185px;
+    height: 375px;
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin: auto;
+
+    background: rgb(250,250,250);
+    //background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(255,255,255,1) 100%);
+
+    //box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    // box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.book-image {
+    width: auto;
+    max-width: 150px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.book-name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 3px 4px 5px #ddd;
+}
+
+.author-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.price-and-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .price {
+        font-weight: 700;
+        box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
+.icon-container {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    justify-self: flex-end;
+}
+.add-item-to-cart-button {
+    border-radius: 5px;
+    // box-shadow:
+    // 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    // 0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    // 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    // 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    // 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    // 0 100px 80px rgba(0, 0, 0, 0.12);
+    // box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background:	#FFA500;
+
+    .add-item-to-cart-icon {
+        width: 40px;
+    }
+
+    &:focus {
+        outline: none;
+    }
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 10px 10px #777;
+        transform: rotate(-8deg);
+        background: #32CD32;
+    }
+    &:disabled {
+        background:	grey !important;
+    }
+}

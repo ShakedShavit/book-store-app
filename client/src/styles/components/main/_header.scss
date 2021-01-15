@@ -1,0 +1,11 @@
+.header {
+    width: 100%;
+    height: 5rem;
+    background-color: rgba(20, 89, 136, 0.7);
+    position: sticky;
+    top: 0;
+    border-bottom: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+    border-image-source: linear-gradient(to left, #743ad5, #7CB9E8);
+}
