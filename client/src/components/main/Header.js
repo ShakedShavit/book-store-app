@@ -15,8 +15,6 @@ const Header = () => {
         history.push('/home');
     }
 
-    console.log(userDataState.user?.email, process.env.REACT_APP_ADMIN_EMAIL)
-
     return (
         <div className="header">
             <NavLink to="/home">Home</NavLink>
@@ -33,8 +31,8 @@ const Header = () => {
                         }
                     </div>
                     {
-                        // userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL &&
-                        // <NavLink to="/admin/edit/books">Edit Books</NavLink>
+                        userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL &&
+                        <NavLink to="/admin/edit/books">Edit Books</NavLink>
                     }
                 </div> :
                 <div>

@@ -9,6 +9,8 @@ import SignupForm from '../login/SignupForm';
 import ShoppingCart from '../shoppingCart/ShoppingCart';
 import LoginRoute from './LoginRoute';
 import PrivateRoute from './PrivateRoute';
+import AdminRoute from './AdminRoute';
+import AddBook from '../admin/AddBook';
 
 const AppRouter = () => {
     return (
@@ -23,6 +25,7 @@ const AppRouter = () => {
                     <LoginRoute path="/login" component={LoginForm} />
                     <Route path="/signup" component={SignupForm} />
                     <PrivateRoute path="/cart" component={ShoppingCart} />
+                    <AdminRoute path="/admin/edit/books" component={AddBook}/>
                     <Route path="*" component={NotFoundPage} />
                 </Switch>
             </LoginContextProvider>

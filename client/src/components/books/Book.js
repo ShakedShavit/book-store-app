@@ -45,7 +45,7 @@ const Book = (props) => {
             console.log(err);
         });
     }
-
+    
     return (
         <div>
             <div className="book-wrapper">
@@ -54,7 +54,7 @@ const Book = (props) => {
             <span className="author-name">{props.book.author}</span>
             <div className="price-and-button-container">
             {
-                !!userDataState.user &&
+                !!userDataState.user && userDataState.user.email !== process.env.REACT_APP_ADMIN_EMAIL &&
                 <div>
                 {
                     isBookChecked ?

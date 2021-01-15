@@ -3,7 +3,11 @@ import React from 'react';
 const AddBook = () => {
  
     return (
-        <div>add book</div>
+        <div>
+            <form>
+                <h1>Add Book</h1>
+            </form>
+        </div>
     )
 }
 
