@@ -13,9 +13,9 @@ const BooksLists = () => {
     const [isLoadingFinished, setIsLoadingFinished] = useState(false);
     const [didBooksStateUpdate, setDidBooksStateUpdate] = useState(false);
 
-    useEffect(() => {
-        let mounted = true;
+    let mounted = true;
 
+    useEffect(() => {
         getAllBooksFromDB()
         .then((res) => {
             if (mounted) {
@@ -36,7 +36,7 @@ const BooksLists = () => {
     return (
         <div className="books-section-container">
             {
-                !!userDataState.user && userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL && isLoadingFinished &&
+                !!userDataState.user && userDataState.user.isAdmin && isLoadingFinished &&
                 <EmptyBookFrame />
             }
             { booksState.map((book, index) => {

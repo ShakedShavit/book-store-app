@@ -26,12 +26,12 @@ const Header = () => {
                         <span onClick={onClickLogOut}>Logout</span>
                         
                         {
-                            userDataState.user.email !== process.env.REACT_APP_ADMIN_EMAIL &&
+                            !userDataState.user.isAdmin &&
                             <NavLink to="/cart">Shopping Cart</NavLink>
                         }
                     </div>
                     {
-                        userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL &&
+                        userDataState.user.isAdmin &&
                         <NavLink to="/admin/edit/books">Edit Books</NavLink>
                     }
                 </div> :

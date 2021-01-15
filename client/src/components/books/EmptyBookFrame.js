@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import addBookSymbol from '../../images/books/add-book-symbol3.svg';
+import addBookSymbol from '../../images/books/add-book-symbol5.png';
 
 const Book = () => {
     const history = useHistory();
@@ -12,7 +12,7 @@ const Book = () => {
     return (
         <div className="book-wrapper">
             <div className="empty-book-container" onClick={goToAddBookPage}>
-                <img src={addBookSymbol} alt="add book" className="book-image"></img>
+                <img src={addBookSymbol} alt="add book" className="add-book-image"></img>
             </div>
         </div>
     )

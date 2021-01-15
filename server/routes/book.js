@@ -3,6 +3,7 @@ const Book = require('../models/book');
 const auth = require('../middleware/auth');
 const multer = require('multer');
 const sharp = require('sharp');
+const isUserTheAdmin = require('../utils/isUserTheAdmin');
 
 const router = express.Router();
 
@@ -39,10 +40,8 @@ router.get('/books/get-all', async (req, res) => {
 
 router.post('/books/register', auth, async (req, res) => {
     try {
-        await req.user.isUserAdmin();
-        const isUserAdmin = await req.user.isUserAdmin();
-        console.log(isUserAdmin)
-        if (isUserAdmin !== true) {
+        const isUserAdmin = isUserTheAdmin(req.user.isAdmin);
+        if (!isUserAdmin) {
             return res.send({
                 status: 403,
                 message: "Admin permissions denied"
@@ -60,8 +59,8 @@ router.post('/books/register', auth, async (req, res) => {
 
 router.delete('/books/remove', auth, async (req, res) => {
     try {
-        const isUserAdmin = await req.user.isUserAdmin();
-        if (isUserAdmin !== true) {
+        const isUserAdmin = isUserTheAdmin(req.user.isAdmin);
+        if (!isUserAdmin) {
             return res.send({
                 status: 403,
                 message: "Admin permissions denied"
@@ -84,8 +83,8 @@ router.delete('/books/remove', auth, async (req, res) => {
 
 router.get('/books/one', auth, async (req, res) => {
     try {
-        const isUserAdmin = await req.user.isUserAdmin();
-        if (isUserAdmin !== true) {
+        const isUserAdmin = isUserTheAdmin(req.user.isAdmin);
+        if (!isUserAdmin) {
             return res.send({
                 status: 403,
                 message: "Admin permissions denied"
@@ -110,8 +109,8 @@ const fieldsArr = ["name", "image", "author", "price"];
 
 router.patch('/books/edit', auth, async (req, res) => {
     try {
-        const isUserAdmin = await req.user.isUserAdmin();
-        if (isUserAdmin !== true) {
+        const isUserAdmin = isUserTheAdmin(req.user.isAdmin);
+        if (!isUserAdmin) {
             return res.send({
                 status: 403,
                 message: "Admin permissions denied"
@@ -156,8 +155,8 @@ const upload = multer({
 });
 
 router.post('/books/image', auth, upload.single('bookImage'), async (req, res) => {
-    const isUserAdmin = await req.user.isUserAdmin();
-    if (isUserAdmin !== true) {
+    const isUserAdmin = isUserTheAdmin(req.user.isAdmin);
+        if (!isUserAdmin) {
         return res.send({
             status: 403,
             message: "Admin permissions denied"

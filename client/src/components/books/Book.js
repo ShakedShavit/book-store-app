@@ -5,6 +5,7 @@ import { addBookToCartInDB } from '../../server/db/user';
 import addItemToCartIcon from '../../images/shopping-carts/add-book-to-cart-2.png'
 import checkIcon from '../../images/shopping-carts/checked-svgrepo-com.svg';
 import GoToCheckoutModal from './GoToCheckoutModal';
+import deleteBookSymbol from '../../images/books/delete-book-6.png';
 
 const Book = (props) => {
     const {userDataState, dispatchUserData} = useContext(LoginContext);
@@ -13,6 +14,17 @@ const Book = (props) => {
     const [isBookChecked, setIsBookChecked] = useState(false);
     const [isComponentMounted, setIsComponentMounted] = useState(true);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [bookWrapperClassList, setBookWrapperClassList] = useState('book-wrapper');
+    const [isShowDeleteBookIcon, setIsShowDeleteBookIcon] = useState(false);
+
+    useEffect(() => {
+        if (userDataState.user?.isAdmin) {
+            setBookWrapperClassList('book-wrapper book-wrapper-admin');
+        }
+        else {
+            setBookWrapperClassList('book-wrapper');
+        }
+    }, [userDataState.user]);
 
     useEffect(() => {
         return () => {
@@ -45,31 +57,41 @@ const Book = (props) => {
             console.log(err);
         });
     }
+
+    const onHoverShowDeleteIcon = () => {
+        if (userDataState.user?.isAdmin) {
+            setIsShowDeleteBookIcon(true);
+        }
+    }
     
     return (
         <div>
-            <div className="book-wrapper">
-            <img src={`http://localhost:5000/books/image?name=${bookName}`} alt={bookName} className="book-image"></img>
-            <span className="book-name">{bookName}</span>
-            <span className="author-name">{props.book.author}</span>
-            <div className="price-and-button-container">
-            {
-                !!userDataState.user && userDataState.user.email !== process.env.REACT_APP_ADMIN_EMAIL &&
-                <div>
+            <div className={bookWrapperClassList} onMouseEnter={onHoverShowDeleteIcon}>
                 {
-                    isBookChecked ?
-                        <div>
-                        <img src={checkIcon} alt="item-checked-icon" className="icon-container"></img>
-                        </div> :
-                        <button className="icon-container add-item-to-cart-button" onClick={addBookToCart} disabled={isButtonDisabled}>
-                            <img src={addItemToCartIcon} alt="add-item-to-shopping-cart-icon" className="add-item-to-cart-icon"></img>
-                        </button>
+                    isShowDeleteBookIcon &&
+                    <img src={deleteBookSymbol} alt="delete-book" className="delete-icon-container"></img>
                 }
+                <img src={`http://localhost:5000/books/image?name=${bookName}`} alt={bookName} className="book-image"></img>
+                <span className="book-name">{bookName}</span>
+                <span className="author-name">{props.book.author}</span>
+                <div className="price-and-button-container">
+                {
+                    !!userDataState.user && !userDataState.user.isAdmin &&
+                    <div>
+                    {
+                        isBookChecked ?
+                            <div>
+                            <img src={checkIcon} alt="item-checked-icon" className="icon-container"></img>
+                            </div> :
+                            <button className="icon-container add-item-to-cart-button" onClick={addBookToCart} disabled={isButtonDisabled}>
+                                <img src={addItemToCartIcon} alt="add-item-to-shopping-cart-icon" className="add-item-to-cart-icon"></img>
+                            </button>
+                    }
+                    </div>
+                    
+                }
+                <span className="price">{props.book.price}$</span>
                 </div>
-                
-            }
-            <span className="price">{props.book.price}$</span>
-            </div>
             </div>
 
             {isModalOpen && <GoToCheckoutModal setIsModalOpen={setIsModalOpen} />}

@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         minlength: 6,
         trim: true
     },
+    isAdmin: {
+        type: Boolean,
+        required: true
+    },
     cart: {
         books: [{
             type: mongoose.Types.ObjectId,
@@ -73,7 +77,7 @@ userSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();
 
-    // delete userObject.email;
+    delete userObject.email;
     delete userObject.password;
     delete userObject.tokens;
 
@@ -153,16 +157,11 @@ userSchema.methods.removeBookFromCart = async function(bookId) {
     return this.save();
 };
 
-userSchema.methods.isUserAdmin = async function() {
-    const user = this;
-
-    // const isMatch = await bcrypt.compare(process.env.ADMIN_PASSWORD, user.password);
-    // if (isMatch) return true;
+// userSchema.methods.isUserAdmin = async function() {
+    // const user = this;
+    // if (process.env.ADMIN_EMAIL === user.email) return true;
     // else return ('Admin permissions denied');
-
-    if (process.env.ADMIN_EMAIL === user.email) return true;
-    else return ('Admin permissions denied');
-};
+// };
 
 const UserModel = mongoose.model('UserModel', userSchema);
 

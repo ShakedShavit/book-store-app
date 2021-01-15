@@ -12,7 +12,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
                 !!userDataState.user ?
                 <div>
                 {
-                    userDataState.user.email === process.env.REACT_APP_ADMIN_EMAIL ?
+                    userDataState.user.isAdmin ?
                     <Component { ...props } /> :
                     <Redirect to='/home' />
                 }

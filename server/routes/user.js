@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 const Book = require('../models/book');
+const isUserTheAdmin = require('../utils/isUserTheAdmin');
 
 const router = express.Router();
 
@@ -13,8 +14,24 @@ router.get('/users/me', auth, async (req, res) => {
     res.send(req.user);
 });
 
+// router.get('/users/is-admin', auth, async (req, res) => {
+//     try {
+//         const isUserAdmin = await req.user.isUserAdmin();
+//         if (isUserAdmin !== true) {
+//             return res.send(false);
+//         }
+//         res.status(200).send(true);
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
+
 router.post('/users/signup', async (req, res) => {
-    const user = new User(req.body);
+    const isUserAdmin = isUserTheAdmin(req.body.email);
+    const user = new User({
+        ...req.body,
+        isAdmin: isUserAdmin
+    });
     try {
         await user.save();
         const token = await user.generateAuthToken();
@@ -38,7 +55,7 @@ router.post('/users/logout', auth, async (req, res) => {
     try {
         const user = req.user;
         user.tokens = user.tokens.filter((token) => {
-        return token.token !== req.token;
+            return token.token !== req.token;
         });
         await user.save();
         
