@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import addBookSymbol from '../../images/books/add-book-symbol5.png';
+import addBookSymbol from '../../images/books/add-book-symbol6.png';
 
 const Book = () => {
     const history = useHistory();

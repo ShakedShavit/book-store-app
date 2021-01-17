@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const GoToCheckoutModal = (props) => {
+const DeleteBookModal = (props) => {
     const closeModalButton = (e) => {
         closeModal(e);
     }
@@ -12,14 +12,11 @@ const GoToCheckoutModal = (props) => {
         if (e != undefined) e.preventDefault();
         props.setIsModalOpen(false)
     }
-    
+
     const history = useHistory();
     const goToHomePage = (e) => {
         closeModal(e);
-        history.push('/home')
-    }
-    const goToCheckout = () => {
-        history.push('/cart')
+        history.push('/home');
     }
 
     return (
@@ -33,4 +30,4 @@ const GoToCheckoutModal = (props) => {
     )
 }
 
-export default GoToCheckoutModal;
+export default DeleteBookModal;

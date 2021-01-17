@@ -38,10 +38,6 @@
             cursor: pointer;
         }
     }
-
-    &:hover {
-        opacity: 0.5;
-    }
 }
 
 .book-image {
@@ -98,7 +94,7 @@
     // 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     // 0 100px 80px rgba(0, 0, 0, 0.12);
     // box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-shadow: rgba(186, 186, 248, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background:	#FFA500;
 
     .add-item-to-cart-icon {
@@ -108,13 +104,22 @@
     &:focus {
         outline: none;
     }
+    // &:hover {
+    //     cursor: pointer;
+    //     box-shadow: 0 10px 10px #777;
+    //     transform: rotate(-8deg);
+    //     background: #32CD32;
+    // }
+    &:disabled {
+        background:	grey !important;
+    }
+}
+
+.add-item-to-cart-button__enabled {
     &:hover {
         cursor: pointer;
         box-shadow: 0 10px 10px #777;
         transform: rotate(-8deg);
         background: #32CD32;
-    }
-    &:disabled {
-        background:	grey !important;
     }
 }

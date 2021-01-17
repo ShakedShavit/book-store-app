@@ -6,7 +6,7 @@ import addItemToCartIcon from '../../images/shopping-carts/add-book-to-cart-2.pn
 import checkIcon from '../../images/shopping-carts/checked-svgrepo-com.svg';
 import GoToCheckoutModal from './GoToCheckoutModal';
 import deleteBookSymbol from '../../images/books/delete-book-6.png';
-
+// if a book is added to cart disable the possibility to add other books before dispatch action is done!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const Book = (props) => {
     const {userDataState, dispatchUserData} = useContext(LoginContext);
 
@@ -36,6 +36,10 @@ const Book = (props) => {
     const bookName = props.book.name;
 
     const addBookToCart = () => {
+        if (props.isBookAddedToCart) {
+            return;
+        }
+        props.setIsBookAddedToCart(true); //
         setIsButtonDisabled(true);
         setIsModalOpen(true);
         addBookToCartInDB(bookName, userDataState.token)
@@ -50,6 +54,7 @@ const Book = (props) => {
             setTimeout(() => {
                 if (isComponentMounted) {
                     setIsBookChecked(false);
+                    props.setIsBookAddedToCart(false);
                 }
             }, 1500);
         })
@@ -63,10 +68,15 @@ const Book = (props) => {
             setIsShowDeleteBookIcon(true);
         }
     }
-    
+    const onLeaveHoverHideDeleteIcon = () => {
+        if (userDataState.user?.isAdmin) {
+            setIsShowDeleteBookIcon(false);
+        }
+    }
+
     return (
         <div>
-            <div className={bookWrapperClassList} onMouseEnter={onHoverShowDeleteIcon}>
+            <div className={bookWrapperClassList} onMouseEnter={onHoverShowDeleteIcon} onMouseLeave={onLeaveHoverHideDeleteIcon}>
                 {
                     isShowDeleteBookIcon &&
                     <img src={deleteBookSymbol} alt="delete-book" className="delete-icon-container"></img>
@@ -83,7 +93,7 @@ const Book = (props) => {
                             <div>
                             <img src={checkIcon} alt="item-checked-icon" className="icon-container"></img>
                             </div> :
-                            <button className="icon-container add-item-to-cart-button" onClick={addBookToCart} disabled={isButtonDisabled}>
+                            <button className={props.addToCartImageClassList} onClick={addBookToCart} disabled={isButtonDisabled}>
                                 <img src={addItemToCartIcon} alt="add-item-to-shopping-cart-icon" className="add-item-to-cart-icon"></img>
                             </button>
                     }
