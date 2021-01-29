@@ -11,3 +11,7 @@ export const removeBookFromCartAction = (bookId, quantity, totalPrice) => ({
     quantity,
     totalPrice
 });
+
+export const removeAllBooksFromCart = () => ({
+    type: "REMOVE_ALL_BOOKS_FROM_CART"
+});

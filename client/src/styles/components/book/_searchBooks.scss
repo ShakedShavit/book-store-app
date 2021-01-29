@@ -1,0 +1,28 @@
+.search-input-container {
+    display: flex;
+    flex-direction: row;
+    width: 50rem;
+    max-width: 50vw;
+    padding: 5px 20px;
+    border: 2px solid grey;
+    border-radius: 15px;
+    column-gap: 5px;
+    
+    .search-input {
+        width: calc(50rem - 10px);
+        border: none;
+        outline: none;
+        background: #f7f9fc;
+    }
+    .search-image {
+        width: 20px;
+        margin-left: 5px;
+    }
+}
+
+@media (max-width: 620px) {
+    .search-input-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}

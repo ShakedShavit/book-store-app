@@ -5,12 +5,12 @@ const auth = async(req, res, next) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const data = jwt.verify(token, process.env.TOKEN_SECRET);
-    
+
         const user = await User.findOne({
             _id: data._id,
             "tokens.token": token
         });
-    
+
         if (!user) {
             throw new Error();
         }

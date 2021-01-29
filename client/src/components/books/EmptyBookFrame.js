@@ -1,21 +1,24 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import addBookSymbol from '../../images/books/add-book-symbol6.png';
+import AddBookModal from '../admin/AddBookModal';
 
-const Book = () => {
-    const history = useHistory();
+const EmptyBookFrame = () => {
+    const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
 
     const goToAddBookPage = () => {
-        history.push('/admin/edit/books')
+        setIsAddBookModalOpen(true);
     }
 
     return (
-        <div className="book-wrapper">
-            <div className="empty-book-container" onClick={goToAddBookPage}>
-                <img src={addBookSymbol} alt="add book" className="add-book-image"></img>
+        <div>
+            <div className="book-wrapper">
+                <div className="empty-book-container" onClick={goToAddBookPage}>
+                    <img src={addBookSymbol} alt="add book" className="add-book-image"></img>
+                </div>
             </div>
+            {isAddBookModalOpen && <AddBookModal setIsAddBookModalOpen={setIsAddBookModalOpen} isAddBookModalOpen={isAddBookModalOpen} />}
         </div>
     )
 }
 
-export default Book;
+export default EmptyBookFrame;

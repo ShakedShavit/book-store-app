@@ -69,6 +69,22 @@ export const removeBookFromCartInDB = async (bookName, token, quantity = 1) => {
     };
 };
 
+export const removeAllBookFromCartInDB = async (token) => {
+    try {
+        const res = await Axios.patch('http://localhost:5000/users/remove-all-books-from-cart', {}, {
+            headers: {
+                'Authorization': `Bearer ${token}` 
+            }
+        });
+
+        return res;
+    } catch (err) {
+        if (err.response.status === 500) {
+            throw new Error('Unable to remove books from cart');
+        }
+    };
+};
+
 // export const getIsUserAdminFromDB = async (token) => {
 //     try {
 //         const res = await Axios.get('http://localhost:5000/users/is-admin', {

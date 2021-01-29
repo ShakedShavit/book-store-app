@@ -5,17 +5,24 @@ import { addBookToCartInDB } from '../../server/db/user';
 import addItemToCartIcon from '../../images/shopping-carts/add-book-to-cart-2.png'
 import checkIcon from '../../images/shopping-carts/checked-svgrepo-com.svg';
 import GoToCheckoutModal from './GoToCheckoutModal';
+import DeleteBookModal from '../admin/DeleteBookModal';
 import deleteBookSymbol from '../../images/books/delete-book-6.png';
-// if a book is added to cart disable the possibility to add other books before dispatch action is done!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+import EditBookModal from '../admin/EditBookModal';
+import editBookSymbol from '../../images/header/edit2.png';
+import BookDetailsModal from './BookDetailsModal';
+
 const Book = (props) => {
     const {userDataState, dispatchUserData} = useContext(LoginContext);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+    const [isDeleteBookModalOpen, setIsDeleteBookModalOpen] = useState(false);
+    const [isEditBookModalOpen, setIsEditBookModalOpen] = useState(false);
+    const [isBookDetailsModalOpen, setIsBookDetailsModalOpen] = useState(false);
     const [isBookChecked, setIsBookChecked] = useState(false);
     const [isComponentMounted, setIsComponentMounted] = useState(true);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [bookWrapperClassList, setBookWrapperClassList] = useState('book-wrapper');
-    const [isShowDeleteBookIcon, setIsShowDeleteBookIcon] = useState(false);
+    const [isShowDeleteAndEditBookIcons, setIsShowDeleteAndEditBookIcons] = useState(false);
 
     useEffect(() => {
         if (userDataState.user?.isAdmin) {
@@ -39,15 +46,12 @@ const Book = (props) => {
         if (props.isBookAddedToCart) {
             return;
         }
-        props.setIsBookAddedToCart(true); //
+        setIsAddBookModalOpen(true);
+        props.setIsBookAddedToCart(true);
         setIsButtonDisabled(true);
-        setIsModalOpen(true);
         addBookToCartInDB(bookName, userDataState.token)
         .then((res) => {
             dispatchUserData(addBookToCartAction(res.data.bookId, parseInt(res.data.quantity), parseFloat(res.data.totalPrice)));
-            // The problem is here, the userDataState is not updating properly although everything in the reducer seems to be in order
-            // console.log(userDataState.user)
-            // saveUserOnCookie(userDataState);
 
             setIsButtonDisabled(false);
             setIsBookChecked(true);
@@ -63,25 +67,45 @@ const Book = (props) => {
         });
     }
 
-    const onHoverShowDeleteIcon = () => {
+    const onHoverShowDeleteAndEditIcons = () => {
         if (userDataState.user?.isAdmin) {
-            setIsShowDeleteBookIcon(true);
+            setIsShowDeleteAndEditBookIcons(true);
         }
     }
-    const onLeaveHoverHideDeleteIcon = () => {
+    const onLeaveHoverHideDeleteAndEditIcons = () => {
         if (userDataState.user?.isAdmin) {
-            setIsShowDeleteBookIcon(false);
+            setIsShowDeleteAndEditBookIcons(false);
+        }
+    }
+
+    const adminDeleteBook = () => {
+        setIsDeleteBookModalOpen(true);
+    }
+    const adminEditBook = () => {
+        setIsEditBookModalOpen(true);
+    }
+
+    const showBookDetailsModal = (e) => {
+        if (!e.target.classList?.value.includes('delete-icon-container') &&
+            !e.target.classList?.value.includes('edit-icon-container') &&
+            !e.target.classList?.value.includes('add-item-to-cart-icon')) {
+            if (!isAddBookModalOpen && !isDeleteBookModalOpen && !isBookDetailsModalOpen) {
+                setIsBookDetailsModalOpen(true);
+            }
         }
     }
 
     return (
         <div>
-            <div className={bookWrapperClassList} onMouseEnter={onHoverShowDeleteIcon} onMouseLeave={onLeaveHoverHideDeleteIcon}>
+            <div className={bookWrapperClassList} onMouseEnter={onHoverShowDeleteAndEditIcons} onMouseLeave={onLeaveHoverHideDeleteAndEditIcons} onClick={showBookDetailsModal}>
                 {
-                    isShowDeleteBookIcon &&
-                    <img src={deleteBookSymbol} alt="delete-book" className="delete-icon-container"></img>
+                    isShowDeleteAndEditBookIcons &&
+                    <div className="admin-icons-container">
+                        <img src={deleteBookSymbol} alt="delete-book" className="delete-icon-container" onClick={adminDeleteBook}></img>
+                        <img src={editBookSymbol} alt="edit-book" className="edit-icon-container" onClick={adminEditBook}></img>
+                    </div>
                 }
-                <img src={`http://localhost:5000/books/image?name=${bookName}`} alt={bookName} className="book-image"></img>
+                <div className="book-image-container"><img src={`http://localhost:5000/books/image?name=${bookName}`} alt={bookName} className="book-image"></img></div>
                 <span className="book-name">{bookName}</span>
                 <span className="author-name">{props.book.author}</span>
                 <div className="price-and-button-container">
@@ -91,7 +115,7 @@ const Book = (props) => {
                     {
                         isBookChecked ?
                             <div>
-                            <img src={checkIcon} alt="item-checked-icon" className="icon-container"></img>
+                                <img src={checkIcon} alt="item-checked-icon" className="icon-container"></img>
                             </div> :
                             <button className={props.addToCartImageClassList} onClick={addBookToCart} disabled={isButtonDisabled}>
                                 <img src={addItemToCartIcon} alt="add-item-to-shopping-cart-icon" className="add-item-to-cart-icon"></img>
@@ -104,9 +128,11 @@ const Book = (props) => {
                 </div>
             </div>
 
-            {isModalOpen && <GoToCheckoutModal setIsModalOpen={setIsModalOpen} />}
+            {isAddBookModalOpen && <GoToCheckoutModal setIsAddBookModalOpen={setIsAddBookModalOpen} />}
+            {isDeleteBookModalOpen && <DeleteBookModal setIsDeleteBookModalOpen={setIsDeleteBookModalOpen} bookName={bookName} />}
+            {isEditBookModalOpen && <EditBookModal setIsEditBookModalOpen={setIsEditBookModalOpen} bookId={props.book._id} bookName={bookName} />}
+            {isBookDetailsModalOpen && <BookDetailsModal setIsBookDetailsModalOpen={setIsBookDetailsModalOpen} book={props.book} />}
         </div>
-        
     )
 }
 

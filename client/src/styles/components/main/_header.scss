@@ -1,11 +1,92 @@
 .header {
     width: 100%;
-    height: 5rem;
-    background-color: rgba(20, 89, 136, 0.7);
-    position: sticky;
-    top: 0;
-    border-bottom: 10px solid;
-    border-image-slice: 1;
-    border-width: 5px;
-    border-image-source: linear-gradient(to left, #743ad5, #7CB9E8);
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 15px;
+    background-color: white;
+    background-color: #add8e6;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;    border-bottom-right-radius: 15px;
+
+    .header-icons {
+        width: 40px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .header-content {
+        width: 60%;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    .welcome-text {
+        align-self: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: white;
+        background: orange;
+        border-radius: 5px;
+        padding: 3px 10px;
+
+        &:hover {
+            color: black;
+        }
+    }
+}
+
+.links-container {
+    margin-top: 3px;
+}
+.login-nav-link {
+    padding: 4px 7px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    background: rgb(194, 150, 150);
+    color: black;
+    font-weight: 600;
+}
+.active-link-login {
+    background: rgb(255, 49, 84);
+    color: white;
+}
+
+.header-cart-icon {
+    position: relative;
+}
+.cart-books-number {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: yellow;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    font-weight: 700;
+    color: red;
+}
+
+@media (max-width: 620px) {
+    .header {
+        .header-icons {
+            width: 30px;
+        }
+
+        .header-content {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 15px 15px 15px;
+        }
+    }
 }

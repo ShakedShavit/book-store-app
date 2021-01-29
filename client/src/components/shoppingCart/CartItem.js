@@ -48,21 +48,32 @@ const CartItem = (props) => {
         }
     }
 
+    const eraseNumberNegative = (e) => {
+        if (e.target.value < 0) e.target.value = 0;
+    }
+
     return (
-        <div>
+        <div >
             {
                 !!book &&
-                <div>
-                    <div className="">
-                        <img src={`http://localhost:5000/books/image?name=${book.name}`} alt={book.name} className=""></img>
-                        <span className="">{book.name}</span>
-                        <span className="">{book.author}</span>
-                        <span className="">{book.price}$</span>
-                        <span>{props.quantity}</span>
-                        <form onSubmit={addOrRemoveBookByQuantity}>
-                            <button type="submit" className="" onClick={() => setIsAddClicked(true)}>add</button>
-                            <input type="number" name="change-quantity-input" placeholder="0" />
-                            <button type="submit" className="" onClick={() => setIsAddClicked(false)}>remove</button>
+                <div className="item-wrapper">
+                    <div className="green-circle"></div>
+                    <div className="cart-item-container">
+                        <div className="item-content">
+                            <img src={`http://localhost:5000/books/image?name=${book.name}`} alt={book.name} className="item-image"></img>
+                            <div className="item-info">
+                                <span className="book-name">{book.name}</span>
+                                <span className="author-name">{book.author}</span>
+                                <div className="price-and-quantity">
+                                    <span className="item-quantity">Quantity: {props.quantity}</span>
+                                    <span className="item-price">{book.price}$</span>
+                                </div>
+                            </div>
+                        </div>
+                        <form className="item-quantity-form" onSubmit={addOrRemoveBookByQuantity} >
+                            <button type="submit" className="button first-button" onClick={() => setIsAddClicked(true)}><b>add</b></button>
+                            <input type="number" name="change-quantity-input" placeholder="0" className="input" onChange={eraseNumberNegative} />
+                            <button type="submit" className="button second-button" onClick={() => setIsAddClicked(false)}><b>remove</b></button>
                         </form>
                     </div>
                 </div>

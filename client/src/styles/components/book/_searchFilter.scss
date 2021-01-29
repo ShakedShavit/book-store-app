@@ -1,0 +1,51 @@
+.search-filter-list {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    z-index: 10;    
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    row-gap: 4px;
+    background: rgba(255, 255, 255, 0.5);
+
+    .filter-opener {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 10px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        text-align: center;
+        padding-right: 5px;
+
+        .filter-arrow {
+            align-self: center;
+            width: 15px;
+        }
+        .filter-arrow__closed {
+            transform: rotate(90deg);
+        }
+        .filter-arrow__open {
+            transform: rotate(270deg);
+        }
+    }
+
+    .filter-option {
+        color: white;
+        cursor: pointer;
+        background-color: lightblue;
+        padding: 15px;
+        border: 1px solid black;
+
+        &:hover {
+            outline: 1px solid black;
+            color: black;
+        }
+    }
+    .filter-option__hide {
+        display: none;
+    }
+}

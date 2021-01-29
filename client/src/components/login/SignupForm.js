@@ -5,9 +5,10 @@ import { loginAction } from '../../actions/loginActions';
 import { LoginContext } from '../../context/loginContext';
 import { saveUserOnCookie } from '../../cookies/userDataCookies';
 import { signUpUserInDB } from '../../server/db/user';
+import Loader from '../main/Loader';
 
 const SignupForm = () => {
-    const { dispatchUserData } = useContext(LoginContext);
+    const { userDataState, dispatchUserData } = useContext(LoginContext);
 
     const history = useHistory();
 
@@ -25,6 +26,7 @@ const SignupForm = () => {
     const [isInsideRepeatPasswordInput, setIsInsideRepeatPasswordInput] = useState(false);
     const [isFormValid, setIsFormValid] = useState(true);
     const [hasLoginFailed, setHasLoginFailed] = useState(false);
+    const [hasLoginStarted, setHasLoginStarted] = useState(false);
 
     const onChangeUsernameInput = (e) => {
         const input = e.target.value.trim();
@@ -112,6 +114,8 @@ const SignupForm = () => {
     const onSubmitForm = (e) => {
         e.preventDefault();
 
+        setHasLoginStarted(true);
+
         const username = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
@@ -129,38 +133,45 @@ const SignupForm = () => {
     }
 
   return (
-    <form onSubmit={onSubmitForm}>
-        <input type="text" name="username" placeholder="Username"
-            onChange={onChangeUsernameInput}
-            onFocus={onFocusUsernameInput}
-            onBlur={onBlurUsernameInput}
-        />
-        {!isUsernameInputValid && !isInsideUsernameInput && <span className="invalid-message">Username is invalid or empty</span>}
-        <input type="email" name="email" placeholder="Email"
-            onChange={onChangeEmailInput}
-            onFocus={onFocusEmailInput}
-            onBlur={onBlurEmailInput}
-        />
-        {!isEmailInputValid && !isInsideEmailInput && <span className="invalid-message">Email is invalid or empty</span>}
-        <input type="password" name="password" placeholder="Password"
-            onChange={onChangePasswordInput}
-            onFocus={onFocusPasswordInput}
-            onBlur={onBlurPasswordInput}
-        />
-        {!isPasswordInputValid && !isInsidePasswordInput && <span className="invalid-message">Password is invalid or empty</span>}
-        <input type="password" name="repeat-password" placeholder="Repeat password"
-            onChange={onChangeRepeatPasswordInput}
-            onFocus={onFocusRepeatPasswordInput}
-            onBlur={onBlurRepeatPasswordInput}
-        />
-        {passwordInput !== "" && !isRepeatPasswordInputValid && !isInsideRepeatPasswordInput && <span className="invalid-message">Repeated password does not match password or is empty</span>}
+      <div>
+        <form className="form" onSubmit={onSubmitForm}>
+            <input type="text" name="username" placeholder="Username"
+                onChange={onChangeUsernameInput}
+                onFocus={onFocusUsernameInput}
+                onBlur={onBlurUsernameInput}
+            />
+            {!isUsernameInputValid && !isInsideUsernameInput && <span className="invalid-message">Username is invalid or empty</span>}
+            <input type="email" name="email" placeholder="Email"
+                onChange={onChangeEmailInput}
+                onFocus={onFocusEmailInput}
+                onBlur={onBlurEmailInput}
+            />
+            {!isEmailInputValid && !isInsideEmailInput && <span className="invalid-message">Email is invalid or empty</span>}
+            <input type="password" name="password" placeholder="Password"
+                onChange={onChangePasswordInput}
+                onFocus={onFocusPasswordInput}
+                onBlur={onBlurPasswordInput}
+            />
+            {!isPasswordInputValid && !isInsidePasswordInput && <span className="invalid-message">Password is invalid or empty</span>}
+            <input type="password" name="repeat-password" placeholder="Repeat password"
+                onChange={onChangeRepeatPasswordInput}
+                onFocus={onFocusRepeatPasswordInput}
+                onBlur={onBlurRepeatPasswordInput}
+            />
+            {passwordInput !== "" && !isRepeatPasswordInputValid && !isInsideRepeatPasswordInput && <span className="invalid-message">Repeated password does not match password or is empty</span>}
+            
+            <button type="submit" disabled={isFormValid}>Sign Up</button>
+
+            {hasLoginFailed && <span className="invalid-message">Sign up failed. Please try again</span>}
+
+            <NavLink to="/login">Login</NavLink>
+        </form>
         
-        <button type="submit" disabled={isFormValid}>Sign Up</button>
-
-        {hasLoginFailed && <span className="invalid-message">Sign up failed. Please try again</span>}
-
-        <NavLink to="/login">Login</NavLink>
-    </form>
+        {
+            hasLoginStarted && !hasLoginFailed && !userDataState.user &&
+            <Loader />
+        }
+      </div>
   );
 }
 

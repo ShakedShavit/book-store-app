@@ -10,7 +10,7 @@ const GoToCheckoutModal = (props) => {
     }
     const closeModal = (e) => {
         if (e != undefined) e.preventDefault();
-        props.setIsModalOpen(false)
+        props.setIsAddBookModalOpen(false)
     }
     
     const history = useHistory();
@@ -24,10 +24,13 @@ const GoToCheckoutModal = (props) => {
 
     return (
         <div className="modal-container" onClick={closeModal}>
-            <div className="modal" onClick={modalClicked}>
+            <div className="checkout-modal modal" onClick={modalClicked}>
                 <button className="close-modal" onClick={closeModalButton}>x</button>
-                <span onClick={goToHomePage}>Continue Shopping</span>
-                <span onClick={goToCheckout}>Go to Checkout</span>
+                <span className="modal-text">Go to Checkout?</span>
+                <div className="checkout-modal-buttons modal-buttons">
+                    <span className="modal-button green-button" onClick={goToCheckout}>Yes</span>
+                    <span className="modal-button grey-button" onClick={goToHomePage}>No</span>
+                </div>
             </div>
         </div>
     )

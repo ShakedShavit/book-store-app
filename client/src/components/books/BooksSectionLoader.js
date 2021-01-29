@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import BooksContextProvider from '../../context/booksContext';
-import BooksLists from './BooksLists';
+import BooksPage from './BooksPage';
 
 const BooksSectionLoader = () => {
     return (
         <BooksContextProvider>
-            <BooksLists />
+            <BooksPage />
         </BooksContextProvider>
     )
 }

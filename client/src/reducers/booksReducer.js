@@ -59,7 +59,7 @@ const booksReducer = (booksState, action) => {
         case "ADD_BOOKS":
             return [...booksState].concat(action.books);
         case "REMOVE_BOOK":
-            return [...booksState].filter((book) => book.id !== action.id);
+            return [...booksState].filter((book) => book.name !== action.bookName);
          default:
             return [...booksState]
     }

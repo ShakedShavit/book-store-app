@@ -1,0 +1,87 @@
+:root {
+    --shadow-color: white;
+    --shadow-color-light: white;
+}
+  
+
+.cart-container {
+    width: 90vw;
+    margin: 50px auto;
+    border-radius: 10px;
+
+    .total-price-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 10px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+
+        margin: 50px 0 0 23px;
+        padding: 20px;
+        background: black;
+    }
+
+    .total-price {
+        color: white;
+        font-size: 4rem;
+        text-transform: uppercase;
+        animation: neon 3s infinite;
+    }
+
+    .purchase-button {
+      width: 12rem;
+      height: 3rem;
+      border: none;
+      background: rgb(255, 49, 84);
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-left: calc(90vw - 12rem);
+      margin-bottom: 40px;
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
+      &:hover {
+        color: yellow;
+        cursor: pointer;
+        transform: rotate(-4deg) scale(1.05);
+        transition-duration: 0.25s;
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+      }
+    }
+}
+
+@keyframes neon {
+    0% {
+      text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+      0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+      0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+    }
+    50% {
+      text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+      0 0 5px var(--shadow-color-light), 0 0 15px var(--shadow-color-light), 0 0 25px var(--shadow-color-light),
+      0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 60px var(--shadow-color), 0 0 80px var(--shadow-color), 0 0 110px var(--shadow-color), 0 0 210px var(--shadow-color);
+    }
+    100% {
+      text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+      0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+      0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+    }
+}
+
+@media (max-width: 620px) {
+  .cart-container {
+    .total-price-container {
+      margin: 50px 0 0 0;
+    }
+
+    .total-price {
+      color: white;
+      font-size: 2rem;
+      text-transform: uppercase;
+      animation: neon 3s infinite;
+    }
+  }
+}

@@ -8,7 +8,7 @@ export const addBooksAction = (books) => ({
     books
 });
 
-export const removeBookAction = (bookId) => ({
+export const removeBookAction = (bookName) => ({
     type: "REMOVE_BOOK",
-    bookId
+    bookName
 });

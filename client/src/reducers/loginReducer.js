@@ -36,8 +36,12 @@ const loginReducer = (userData, action) => {
             user = deepcopy(userData.user);
             user.cart.books = cart;
             user.cart.totalPrice = action.totalPrice;
-            // console.log({ user, token: userData.token })
             return { user, token: userData.token };
+        case "REMOVE_ALL_BOOKS_FROM_CART":
+            user = deepcopy(userData.user);
+            user.cart.books = [];
+            user.cart.totalPrice = 0;
+            return { user, token: userData.token }
          default:
             return { ...userData };
     }

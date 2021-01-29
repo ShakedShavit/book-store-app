@@ -127,6 +127,18 @@ router.patch('/users/remove-book-from-cart', auth, async (req, res) => {
     }
 });
 
+router.patch('/users/remove-all-books-from-cart', auth, async (req, res) => {
+    try {
+        req.user.cart.books = [];
+        req.user.cart.totalPrice = '0';
+
+        await req.user.save();
+        res.send(req.user.cart);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 const fieldsArr = ["username", "email", "password"];
 
 router.patch('/users/edit', auth, async (req, res) => {
