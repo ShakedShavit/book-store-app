@@ -6,9 +6,9 @@ const isUserTheAdmin = require('../utils/isUserTheAdmin');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    res.send('API is working properly');
-});
+// router.get('/', async (req, res) => {
+//     res.send('API is working properly');
+// });
 
 router.get('/users/me', auth, async (req, res) => {
     res.send(req.user);
