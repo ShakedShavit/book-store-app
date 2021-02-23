@@ -18,7 +18,7 @@ const BookDetailsModal = (props) => {
                 <button className="close-modal" onClick={closeModalButton}>x</button>
 
                 <div className="book-details-modal">
-                    <img src={`http://localhost:5000/books/image?name=${props.book.name}`}></img>
+                    <img src={`/books/image?name=${props.book.name}`}></img>
                     <div>Name: <b>{props.book.name}</b></div>
                     <div>Author: <b>{props.book.author}</b></div>
                     <div>Price: <b>{props.book.price}</b></div>

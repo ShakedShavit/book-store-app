@@ -105,7 +105,7 @@ const Book = (props) => {
                         <img src={editBookSymbol} alt="edit-book" className="edit-icon-container" onClick={adminEditBook}></img>
                     </div>
                 }
-                <div className="book-image-container"><img src={`http://localhost:5000/books/image?name=${bookName}`} alt={bookName} className="book-image"></img></div>
+                <div className="book-image-container"><img src={`/books/image?name=${bookName}`} alt={bookName} className="book-image"></img></div>
                 <span className="book-name">{bookName}</span>
                 <span className="author-name">{props.book.author}</span>
                 <div className="price-and-button-container">

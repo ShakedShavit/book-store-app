@@ -60,7 +60,7 @@ const CartItem = (props) => {
                     <div className="green-circle"></div>
                     <div className="cart-item-container">
                         <div className="item-content">
-                            <img src={`http://localhost:5000/books/image?name=${book.name}`} alt={book.name} className="item-image"></img>
+                            <img src={`/books/image?name=${book.name}`} alt={book.name} className="item-image"></img>
                             <div className="item-info">
                                 <span className="book-name">{book.name}</span>
                                 <span className="author-name">{book.author}</span>
