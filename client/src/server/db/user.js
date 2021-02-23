@@ -4,7 +4,7 @@ import Axios from 'axios';
 
 export const loginUserInDB = async (usernameOrEmail, password) => {
     try {
-        const res = await Axios.post('http://localhost:5000/users/login', {
+        const res = await Axios.post('/users/login', {
             usernameOrEmail,
             password
         });
@@ -19,7 +19,7 @@ export const loginUserInDB = async (usernameOrEmail, password) => {
 
 export const signUpUserInDB = async (username, email, password) => {
     try {
-        const res = await Axios.post('http://localhost:5000/users/signup', {
+        const res = await Axios.post('/users/signup', {
             username,
             email,
             password
@@ -35,7 +35,7 @@ export const signUpUserInDB = async (username, email, password) => {
 
 export const addBookToCartInDB = async (bookName, token, quantity = 1) => {
     try {
-        const res = await Axios.patch('http://localhost:5000/users/add-book-to-cart', {
+        const res = await Axios.patch('/users/add-book-to-cart', {
             params: { bookName, quantity }
         }, {
             headers: {
@@ -53,7 +53,7 @@ export const addBookToCartInDB = async (bookName, token, quantity = 1) => {
 
 export const removeBookFromCartInDB = async (bookName, token, quantity = 1) => {
     try {
-        const res = await Axios.patch('http://localhost:5000/users/remove-book-from-cart', {
+        const res = await Axios.patch('/users/remove-book-from-cart', {
             params: { bookName, quantity }
         }, {
             headers: {
@@ -71,7 +71,7 @@ export const removeBookFromCartInDB = async (bookName, token, quantity = 1) => {
 
 export const removeAllBookFromCartInDB = async (token) => {
     try {
-        const res = await Axios.patch('http://localhost:5000/users/remove-all-books-from-cart', {}, {
+        const res = await Axios.patch('/users/remove-all-books-from-cart', {}, {
             headers: {
                 'Authorization': `Bearer ${token}` 
             }
@@ -87,7 +87,7 @@ export const removeAllBookFromCartInDB = async (token) => {
 
 // export const getIsUserAdminFromDB = async (token) => {
 //     try {
-//         const res = await Axios.get('http://localhost:5000/users/is-admin', {
+//         const res = await Axios.get('/users/is-admin', {
 //             headers: {
 //                 'Authorization': `Bearer ${token}` 
 //             }

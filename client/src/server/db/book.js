@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export const getBookFromDB = async (bookId) => {
     try {
-        const res = await Axios.get('http://localhost:5000/books/get', {
+        const res = await Axios.get('/books/get', {
             params: { bookId }
         });
         return res;
@@ -15,7 +15,7 @@ export const getBookFromDB = async (bookId) => {
 
 export const getAllBooksFromDB = async () => {
     try {
-        const res = await Axios.get('http://localhost:5000/books/get-all');
+        const res = await Axios.get('/books/get-all');
         return [ ...res.data ];
     } catch (err) {
         if (err.response?.status === 404) {
@@ -26,7 +26,7 @@ export const getAllBooksFromDB = async () => {
 
 export const registerBookInDB = async (bookName, author, price, summary, token) => {
     try {
-        const res = await Axios.post('http://localhost:5000/books/register', {
+        const res = await Axios.post('/books/register', {
             name: bookName,
             author,
             price,
@@ -47,7 +47,7 @@ export const registerBookInDB = async (bookName, author, price, summary, token) 
 
 export const uploadBookImageToDB = async (formData, bookName, token) => {
     try {
-        const res = await Axios.post('http://localhost:5000/books/image', formData, {
+        const res = await Axios.post('/books/image', formData, {
             headers: {
                 'content-type': 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
@@ -67,7 +67,7 @@ export const uploadBookImageToDB = async (formData, bookName, token) => {
 
 export const deleteBookInDB = async (bookName, token) => {
     try {
-        const res = await Axios.patch('http://localhost:5000/books/delete', {
+        const res = await Axios.patch('/books/delete', {
             params: { bookName }
         }, {
             headers: {
@@ -84,7 +84,7 @@ export const deleteBookInDB = async (bookName, token) => {
 
 export const editBookInDB = async (bookId, changes, token) => {
     try {
-        const res = await Axios.patch('http://localhost:5000/books/edit', {
+        const res = await Axios.patch('/books/edit', {
             params: { bookId, changes }
         }, {
             headers: {
@@ -101,7 +101,7 @@ export const editBookInDB = async (bookId, changes, token) => {
 
 // export const getBookImageFromDB = async (bookName) => {
 //     try {
-//         const res = await Axios.get('http://localhost:5000/books/image', {
+//         const res = await Axios.get('/books/image', {
 //             params: {
 //                 name: bookName
 //             }
